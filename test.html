@@ -85,29 +85,34 @@
     
     
     
-    (function () {
-		var ua = util.userAgent();
+	var ua = util.userAgent();
 		
-		var scheme = 'datascar',
-				pkgName = 'com.elbowcorp.pincar',
-				urlScheme = 'datascar://post_android_carinfo?seq=68768&number=46%EC%A1%B08015',
-				intentURI =  'intent://post_android_carinfo?seq=68768&number=46%25EC%25A1%25B08015#Intent;scheme=' + scheme + ';package=' + pkgName + ';end',
-				appStoreURL = ua.os.android ? 'market://details?id=' + pkgName : 'itms-apps://itunes.apple.com/app/id1276423834';
-		btnEl.addEventListener('click', function () {
-			if (ua.platform === 'pc') {
-				alert('support iOS and Android only');
-			} else {
-				daumtools.web2app({
-					urlScheme : urlScheme,  // iphone : custom scheme
-					intentURI : intentURI,  // android : intent URI
-					appName : '핀카',         // application Name (ex. facebook, twitter, daum) 
-          storeURL : appStoreURL   // app store URL
-				});
-			}
-		});
-		
+	var scheme = 'datascar',
+			pkgName = 'com.elbowcorp.pincar',
+			urlScheme = 'datascar://post_android_carinfo?seq=68768&number=46%EC%A1%B08015',
+			intentURI =  'intent://post_android_carinfo?seq=68768&number=46%25EC%25A1%25B08015#Intent;scheme=' + scheme + ';package=' + pkgName + ';end',
+			appStoreURL = ua.os.android ? 'market://details?id=' + pkgName : 'itms-apps://itunes.apple.com/app/id1276423834';
+
 	
-	})();
+	
+	
+    var fallbackFunction = function() {
+        if (ua.platform === 'pc') {
+		alert('support iOS and Android only');
+	} else {
+		daumtools.web2app({
+			urlScheme : urlScheme,  // iphone : custom scheme
+			intentURI : intentURI,  // android : intent URI
+			appName : '핀카',         // application Name (ex. facebook, twitter, daum) 
+			storeURL : appStoreURL   // app store URL
+		});
+	}
+    };
+	
+	
+    window.onload = function() {
+        fallbackFunction();
+    };
 </script>
 
 </body>
